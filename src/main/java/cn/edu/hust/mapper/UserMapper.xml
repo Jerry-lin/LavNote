@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hust.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hust.domain.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="firstname" property="firstname" jdbcType="VARCHAR" />
+    <result column="lastname" property="lastname" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, firstname, lastname, password
+  </sql>
+  <insert id="insert" parameterType="cn.edu.hust.domain.User" >
+    insert into User (id, firstname, lastname, 
+      password)
+    values (#{id,jdbcType=VARCHAR}, #{firstname,jdbcType=VARCHAR}, #{lastname,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR})
+  </insert>
+
+  <select id="findUserByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * FROM User WHERE firstname=#{firstname,jdbcType=VARCHAR}
+  </select>
+</mapper>

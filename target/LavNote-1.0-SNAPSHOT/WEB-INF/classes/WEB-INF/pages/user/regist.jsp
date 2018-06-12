@@ -46,8 +46,8 @@
                 <div class="alert alert-danger" id="loginMsg"></div>
                 <input id="from" type="hidden" value="" />
                 <div class="form-group">
-                    <label class="control-label" for="email">Email</label>
-                    <input type="text" class="form-control" id="email" name="email">
+                    <label class="control-label" for="username">username</label>
+                    <input type="text" class="form-control" id="username" name="username">
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="pwd">密码</label>
@@ -139,18 +139,12 @@
         }
         $("#registerBtn").click(function(e){
             e.preventDefault();
-            var email = $("#email").val();
+            var username = $("#username").val();
             var pwd = $("#pwd").val();
             var pwd2 = $("#pwd2").val();
-            if(!email) {
-                showMsg("请输入Email", "email");
+            if(!username) {
+                showMsg("请输入username", "username");
                 return;
-            } else {
-                var myreg = /^([a-zA-Z0-9]+[_|\_|\.|\-]?)*[a-zA-Z0-9\-_]+@([a-zA-Z0-9\-]+[_|\_|\.|\-]?)*[a-zA-Z0-9\-]+\.[0-9a-zA-Z]{2,6}$/;
-                if(!myreg.test(email)) {
-                    showMsg("Email格式有误", "email");
-                    return;
-                }
             }
             if(!pwd) {
                 showMsg("请输入密码", "pwd");
@@ -176,19 +170,14 @@
 
             var iu = "";
 
-            $.post("/user/register", {email: email, pwd: pwd, iu: iu}, function(e) {
+            $.post("/user/register", {username: username, pwd: pwd, iu: iu}, function(e) {
                 $("#registerBtn").html("注册").removeClass("disabled");
                 if(e.ok) {
-                    <!--$("#registerBtn").html("注册成功, 正在跳转...");-->
-                    var msg = "已经激活邮箱的链接发送到您的邮箱, 请查收邮件."
-                    var loginAddress = getEmailLoginAddress(email);
-                    if(loginAddress) {
-                        msg += ' <a target="_blank" href="' + loginAddress + '">查收邮箱</a>';
-                    }
-                    $("#loginMsg").html(msg).show().removeClass("alert-danger").addClass("alert-success");
+                    $("#registerBtn").html("注册成功, 正在跳转...");
+                    window.href="/page/index";
 
                 } else {
-                    showMsg(e.msg, "email");
+                    showMsg(e.msg, "username");
                 }
             });
         });
