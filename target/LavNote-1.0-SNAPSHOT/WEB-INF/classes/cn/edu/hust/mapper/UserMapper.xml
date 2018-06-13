@@ -16,4 +16,8 @@
     values (#{id,jdbcType=VARCHAR}, #{firstname,jdbcType=VARCHAR}, #{lastname,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR})
   </insert>
+
+  <select id="findUserByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * FROM User WHERE firstname=#{firstname,jdbcType=VARCHAR}
+  </select>
 </mapper>

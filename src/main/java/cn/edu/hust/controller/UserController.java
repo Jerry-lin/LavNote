@@ -38,15 +38,16 @@ public class UserController {
     public @ResponseBody ResponseMsg register(@RequestParam String username, @RequestParam String pwd)
     {
         User bean=this.userService.findUserByUserName(username);
-        ResponseMsg msg=new ResponseMsg();
+        ResponseMsg<String> msg=new ResponseMsg();
         if(bean!=null)
         {
-          msg.setOk(false);
+          msg.setSuccess(false);
+          msg.setResponse("用户名已注册!");
           return msg;
         }
         User user=param2User(username, pwd);
         this.userService.insertUser(user);
-        msg.setOk(true);
+        msg.setSuccess(true);
         return msg;
     }
 

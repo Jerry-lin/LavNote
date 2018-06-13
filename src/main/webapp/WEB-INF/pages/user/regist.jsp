@@ -129,13 +129,13 @@
         $("#email").focus();
 
         function showMsg(msg, id) {
-            $("#loginMsg").html(msg).show();
+            $("#registerBtn").html(msg).show();
             if(id) {
                 $("#" + id).focus();
             }
         }
         function hideMsg() {
-            $("#loginMsg").hide();
+            $("#registerBtn").hide();
         }
         $("#registerBtn").click(function(e){
             e.preventDefault();
@@ -172,12 +172,12 @@
 
             $.post("/user/register", {username: username, pwd: pwd, iu: iu}, function(e) {
                 $("#registerBtn").html("注册").removeClass("disabled");
-                if(e.ok) {
+                if(e.success) {
                     $("#registerBtn").html("注册成功, 正在跳转...");
-                    window.location.href="/page/index";
+                    location.href="/page/index";
 
                 } else {
-                    showMsg(e.msg, "username");
+                    showMsg(e.response, "username");
                 }
             });
         });

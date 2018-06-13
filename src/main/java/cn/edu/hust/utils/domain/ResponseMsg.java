@@ -1,13 +1,24 @@
 package cn.edu.hust.utils.domain;
 
-public class ResponseMsg {
-    private boolean ok;
+public class ResponseMsg<T> {
 
-    public boolean isOk() {
-        return ok;
+    private boolean success;
+
+    private T response;
+
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setOk(boolean ok) {
-        this.ok = ok;
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public T getResponse() {
+        return response;
+    }
+
+    public void setResponse(T response) {
+        this.response = response;
     }
 }
