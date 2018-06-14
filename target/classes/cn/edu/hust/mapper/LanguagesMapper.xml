@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.hust.mapper.LanguagesMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.hust.domain.Languages">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="language_code" jdbcType="CHAR" property="language_code" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deleted_at" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, language_code, deleted_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from languages
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from languages
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.hust.domain.Languages">
+    insert into languages (id, language_code, deleted_at
+      )
+    values (#{id,jdbcType=CHAR}, #{language_code,jdbcType=CHAR}, #{deleted_at,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.hust.domain.Languages">
+    insert into languages
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="language_code != null">
+        language_code,
+      </if>
+      <if test="deleted_at != null">
+        deleted_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="language_code != null">
+        #{language_code,jdbcType=CHAR},
+      </if>
+      <if test="deleted_at != null">
+        #{deleted_at,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.hust.domain.Languages">
+    update languages
+    <set>
+      <if test="language_code != null">
+        language_code = #{language_code,jdbcType=CHAR},
+      </if>
+      <if test="deleted_at != null">
+        deleted_at = #{deleted_at,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.hust.domain.Languages">
+    update languages
+    set language_code = #{language_code,jdbcType=CHAR},
+      deleted_at = #{deleted_at,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

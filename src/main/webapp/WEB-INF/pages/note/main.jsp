@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: youyujie
-  Date: 2018/6/11
-  Time: 上午10:18
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,12 +19,12 @@
     <link rel="apple-touch-icon" sizes="152x152" href="/images/paperwork-icons/favicon-152x152.png">
 
 
-    <link rel="manifest" href="manifests/homescreen-manifest.json">
+    <link rel="manifest" href="/manifests/homescreen-manifest.json">
     <title>Paperwork</title>
 
-    <!-- <link media="all" type="text/css" rel="stylesheet" href="https://paperwork-demo.cloudron.me/css/bootstrap.min.css">
+    <!-- <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
  -->
-    <!-- <link media="all" type="text/css" rel="stylesheet" href="https://paperwork-demo.cloudron.me/css/bootstrap-theme.min.css">
+    <!-- <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap-theme.min.css">
  -->
 
     <link media="all" type="text/css" rel="stylesheet" href="/css/themes/paperwork-v1.min.css">
@@ -66,7 +59,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="paperwork-logo navbar-brand transition-effect" href="/#/"
-            ><img src="https://paperwork-demo.cloudron.me/images/navbar-logo.png"> Paperwork</a>
+            ><img src="/images/navbar-logo.png"> Paperwork</a>
         </div>
         <div class="navbar-collapse collapse">
             <div class="visible-xs">
@@ -142,14 +135,14 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Show hover titles for small and medium screens -->
                 <li class="hidden-xs hidden-lg" title="Library">
-                    <a href="https://paperwork-demo.cloudron.me#/" class="transition-effect">
+                    <a href="#/" class="transition-effect">
                         <i class="fa fa-book"></i>
                     </a>
                 </li>
 
                 <!-- Show actual titles for large and extra small screens -->
                 <li class="hidden-sm hidden-md">
-                    <a href="https://paperwork-demo.cloudron.me#/" class="transition-effect">
+                    <a href="#/" class="transition-effect">
                         <i class="fa fa-book"></i>
                         <span>
 			Library
@@ -159,14 +152,14 @@
 
                 <!-- Show hover titles for small and medium screens -->
                 <li class="hidden-xs hidden-lg" title="Profile">
-                    <a href="https://paperwork-demo.cloudron.me/profile" class="transition-effect">
+                    <a href="/profile" class="transition-effect">
                         <i class="fa fa-user"></i>
                     </a>
                 </li>
 
                 <!-- Show actual titles for large and extra small screens -->
                 <li class="hidden-sm hidden-md">
-                    <a href="https://paperwork-demo.cloudron.me/profile" class="transition-effect">
+                    <a href="/profile" class="transition-effect">
                         <i class="fa fa-user"></i>
                         <span>
 			Profile
@@ -176,14 +169,14 @@
 
                 <!-- Show hover titles for small and medium screens -->
                 <li class="hidden-xs hidden-lg" title="Settings">
-                    <a href="https://paperwork-demo.cloudron.me/settings" class="transition-effect">
+                    <a href="/settings" class="transition-effect">
                         <i class="fa fa-cog"></i>
                     </a>
                 </li>
 
                 <!-- Show actual titles for large and extra small screens -->
                 <li class="hidden-sm hidden-md">
-                    <a href="https://paperwork-demo.cloudron.me/settings" class="transition-effect">
+                    <a href="/settings" class="transition-effect">
                         <i class="fa fa-cog"></i>
                         <span>
 			Settings
@@ -191,17 +184,33 @@
                     </a>
                 </li>
 
+                <!-- Show hover titles for small and medium screens -->
+                <li class="hidden-xs hidden-lg" title="Admin Area">
+                    <a href="/admin" class="transition-effect">
+                        <i class="fa fa-star"></i>
+                    </a>
+                </li>
+
+                <!-- Show actual titles for large and extra small screens -->
+                <li class="hidden-sm hidden-md">
+                    <a href="/admin" class="transition-effect">
+                        <i class="fa fa-star"></i>
+                        <span>
+			Admin Area
+		</span>
+                    </a>
+                </li>
 
                 <!-- Show hover titles for small and medium screens -->
                 <li class="hidden-xs hidden-lg" title="Help">
-                    <a href="https://paperwork-demo.cloudron.me/help" class="transition-effect">
+                    <a href="/help" class="transition-effect">
                         <i class="fa fa-question"></i>
                     </a>
                 </li>
 
                 <!-- Show actual titles for large and extra small screens -->
                 <li class="hidden-sm hidden-md">
-                    <a href="https://paperwork-demo.cloudron.me/help" class="transition-effect">
+                    <a href="/help" class="transition-effect">
                         <i class="fa fa-question"></i>
                         <span>
 			Help
@@ -210,14 +219,14 @@
                 </li>
                 <!-- Show hover titles for small and medium screens -->
                 <li class="hidden-xs hidden-lg" title="Sign out">
-                    <a href="https://paperwork-demo.cloudron.me/logout" class="transition-effect">
+                    <a href="/logout" class="transition-effect">
                         <i class="fa fa-sign-out"></i>
                     </a>
                 </li>
 
                 <!-- Show actual titles for large and extra small screens -->
                 <li class="hidden-sm hidden-md">
-                    <a href="https://paperwork-demo.cloudron.me/logout" class="transition-effect">
+                    <a href="/logout" class="transition-effect">
                         <i class="fa fa-sign-out"></i>
                         <span>
 			Sign out
@@ -233,7 +242,7 @@
 <div ng-controller="MessageBoxController" class="modal fade" id="modalMessageBox" tabindex="-1" role="dialog" aria-labelledby="modalMessageBoxLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="https://paperwork-demo.cloudron.me" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="PJMORKp4Qe2fdzNBkrVuXZehqQa4nFFzQjsWCufo">
+            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="z3TqkUmmBWPxsuYZSlgHk75BtGJzOabv8wZMKSOX">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="modalMessageBoxLabel">
@@ -285,7 +294,7 @@
 <div ng-controller="SidebarNotebooksController" class="modal fade" id="modalNotebookSelect" tabindex="-1" role="dialog" aria-labelledby="modalNotebookSelectLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="https://paperwork-demo.cloudron.me" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="PJMORKp4Qe2fdzNBkrVuXZehqQa4nFFzQjsWCufo">
+            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="z3TqkUmmBWPxsuYZSlgHk75BtGJzOabv8wZMKSOX">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="modalNotebookSelectLabel">
@@ -399,7 +408,7 @@
 <div ng-controller="SidebarNotesController" class="modal fade" id="modalUsersSelect" tabindex="-1" role="dialog" aria-labelledby="modalUsersSelectLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="https://paperwork-demo.cloudron.me" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="PJMORKp4Qe2fdzNBkrVuXZehqQa4nFFzQjsWCufo">
+            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="z3TqkUmmBWPxsuYZSlgHk75BtGJzOabv8wZMKSOX">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="modalUsersSelectLabel">
@@ -442,7 +451,7 @@
 <div ng-controller="SidebarNotebooksController" class="modal fade" id="modalUsersNotebookSelect" tabindex="-1" role="dialog" aria-labelledby="modalUsersNotebookSelectLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="https://paperwork-demo.cloudron.me" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="PJMORKp4Qe2fdzNBkrVuXZehqQa4nFFzQjsWCufo">
+            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="z3TqkUmmBWPxsuYZSlgHk75BtGJzOabv8wZMKSOX">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="modalUsersSelectLabel">
@@ -578,15 +587,10 @@
                                 <span class="tree-header tree-header-notebooks" title="Click to {{ notebooksCollapsed ? 'Expand' : 'Collapse' }}" ng-click="notebooksCollapsed=!notebooksCollapsed"><i class="fa {{ notebooksCollapsed ? 'fa-chevron-right' : 'fa-chevron-down' }}"></i> Notebooks <button class="btn btn-default btn-xs pull-right" ng-click="modalManageNotebooks();$event.stopPropagation();" title="Manage notebooks"><span class="fa fa-pencil"></span></button></span>
                                 <ul class="tree-child" collapse="notebooksCollapsed">
                                     <li class="tree-notebook" ng-repeat="notebook in notebooks | orderBy:'title'" ng-cloak>
-                                        <div class="notebook-title" ng-click="openNotebook(notebook.id, notebook.type, notebook.id)" ng-class="{ 'active': notebook.id == getNotebookSelectedId() }" ng-drop="true" ng-drop-success="onDropSuccess($data,$event)">
-                                            <i class="fa" ng-class="isCollectionOpen(notebook.id) ? 'fa-folder-open' : notebookIconByType(notebook.type)">
-                                            </i> {{notebook.title}}
-                                        </div>
+                                        <div class="notebook-title" ng-click="openNotebook(notebook.id, notebook.type, notebook.id)" ng-class="{ 'active': notebook.id == getNotebookSelectedId() }" ng-drop="true" ng-drop-success="onDropSuccess($data,$event)"><i class="fa" ng-class="isCollectionOpen(notebook.id) ? 'fa-folder-open' : notebookIconByType(notebook.type)"></i> {{notebook.title}}</div>
                                         <ul class="tree-child tree-children" ng-class=" { 'hidden': !isCollectionOpen(notebook.id) } ">
                                             <li class="tree-notebook" ng-repeat="child in notebook.children | orderBy:'title'">
-                                                <div class="notebook-title" ng-click="openNotebook(child.id, child.type, child.id)" ng-class="{ 'active': child.id == getNotebookSelectedId(), 'childNotebook': child.parent_id != NULL }">
-                                                    <i class="fa {{ notebookIconByType(child.type) }}">
-                                                    </i> {{child.title}}</div>
+                                                <div class="notebook-title" ng-click="openNotebook(child.id, child.type, child.id)" ng-class="{ 'active': child.id == getNotebookSelectedId(), 'childNotebook': child.parent_id != NULL }"><i class="fa {{ notebookIconByType(child.type) }}"></i> {{child.title}}</div>
                                             </li>
                                         </ul>
                                     </li>
@@ -664,9 +668,8 @@
             </div>
         </div>
         <div id="paperworkViewParent"
-             class="main col-xs-12 {{ isVisible() ?
-                (sidebarCollapsed ? 'col-sm-8 col-md-9 col-sm-offset-4 col-md-offset-3' : 'col-sm-5 col-md-7 col-sm-offset-7 col-md-offset-5' )
-                : 'col-sm-12 col-md-12' }}"
+             class="main col-xs-12"
+             ng-class="(getStyleClasses(notes.length, sidebarCollapsed))"
              ng-controller="ViewController">
             <div class="text-center"
                  id="paperworkViewEmpty"
@@ -685,7 +688,13 @@
 
 
 <div class="container-fluid">
-    <div class="footer footer-issue hide" ondblclick="$(this).hide()">
+    <div class="footer footer-issue " ondblclick="$(this).hide()">
+        <div class="error-reporting">
+            <div class="alert alert-warning" role="alert">
+                <p>Found a bug? LavNote cannot connect to Github to check the latest version. A solution to this can be installling the curl Java extension. This is not mandatory, however before reporting any issues, please make sure that you are using the latest version.  </p>
+                <p>Double click to dismiss.
+            </div>
+        </div>
     </div>
 </div>
 
@@ -725,4 +734,3 @@
 
 </body>
 </html>
-

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.hust.mapper.SettingsMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.hust.domain.Settings">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="user_id" jdbcType="CHAR" property="user_id" />
+    <result column="ui_language" jdbcType="CHAR" property="ui_language" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="created_at" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updated_at" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deleted_at" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, ui_language, created_at, updated_at, deleted_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from settings
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from settings
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.hust.domain.Settings">
+    insert into settings (id, user_id, ui_language, created_at, updated_at, deleted_at)
+    values (#{id,jdbcType=CHAR},#{user_id,jdbcType=CHAR},#{ui_language,jdbcType=CHAR},#{created_at,jdbcType=TIMESTAMP}, #{updated_at,jdbcType=TIMESTAMP}, #{deleted_at,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.hust.domain.Settings">
+    insert into settings
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="ui_language != null">
+        ui_language,
+      </if>
+      <if test="created_at != null">
+        created_at,
+      </if>
+      <if test="updated_at != null">
+        updated_at,
+      </if>
+      <if test="deleted_at != null">
+        deleted_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=CHAR},
+      </if>
+      <if test="ui_language != null">
+        #{ui_language,jdbcType=CHAR},
+      </if>
+      <if test="created_at != null">
+        #{created_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated_at != null">
+        #{updated_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted_at != null">
+        #{deleted_at,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.hust.domain.Settings">
+    update settings
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=CHAR},
+      </if>
+      <if test="ui_language != null">
+        ui_language = #{ui_language,jdbcType=CHAR},
+      </if>
+      <if test="created_at != null">
+        created_at = #{created_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated_at != null">
+        updated_at = #{updated_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted_at != null">
+        deleted_at = #{deleted_at,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.hust.domain.Settings">
+    update settings
+    set user_id = #{user_id,jdbcType=CHAR},
+      ui_language = #{ui_language,jdbcType=CHAR},
+      created_at = #{created_at,jdbcType=TIMESTAMP},
+      updated_at = #{updated_at,jdbcType=TIMESTAMP},
+      deleted_at = #{deleted_at,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

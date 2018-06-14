@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.hust.mapper.AttachmentsMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.hust.domain.Attachments">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="created_at" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updated_at" />
+    <result column="filename" jdbcType="VARCHAR" property="filename" />
+    <result column="fileextension" jdbcType="VARCHAR" property="fileextension" />
+    <result column="mimetype" jdbcType="VARCHAR" property="mimetype" />
+    <result column="filesize" jdbcType="BIGINT" property="filesize" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deleted_at" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.edu.hust.domain.Attachments">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, created_at, updated_at, filename, fileextension, mimetype, filesize, deleted_at
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from attachments
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from attachments
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.hust.domain.Attachments">
+    insert into attachments (id, created_at, updated_at, 
+      filename, fileextension, mimetype, 
+      filesize, deleted_at, content
+      )
+    values (#{id,jdbcType=CHAR}, #{created_at,jdbcType=TIMESTAMP}, #{updated_at,jdbcType=TIMESTAMP}, 
+      #{filename,jdbcType=VARCHAR}, #{fileextension,jdbcType=VARCHAR}, #{mimetype,jdbcType=VARCHAR}, 
+      #{filesize,jdbcType=BIGINT}, #{deleted_at,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.hust.domain.Attachments">
+    insert into attachments
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="created_at != null">
+        created_at,
+      </if>
+      <if test="updated_at != null">
+        updated_at,
+      </if>
+      <if test="filename != null">
+        filename,
+      </if>
+      <if test="fileextension != null">
+        fileextension,
+      </if>
+      <if test="mimetype != null">
+        mimetype,
+      </if>
+      <if test="filesize != null">
+        filesize,
+      </if>
+      <if test="deleted_at != null">
+        deleted_at,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="created_at != null">
+        #{created_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated_at != null">
+        #{updated_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileextension != null">
+        #{fileextension,jdbcType=VARCHAR},
+      </if>
+      <if test="mimetype != null">
+        #{mimetype,jdbcType=VARCHAR},
+      </if>
+      <if test="filesize != null">
+        #{filesize,jdbcType=BIGINT},
+      </if>
+      <if test="deleted_at != null">
+        #{deleted_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.hust.domain.Attachments">
+    update attachments
+    <set>
+      <if test="created_at != null">
+        created_at = #{created_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated_at != null">
+        updated_at = #{updated_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="filename != null">
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileextension != null">
+        fileextension = #{fileextension,jdbcType=VARCHAR},
+      </if>
+      <if test="mimetype != null">
+        mimetype = #{mimetype,jdbcType=VARCHAR},
+      </if>
+      <if test="filesize != null">
+        filesize = #{filesize,jdbcType=BIGINT},
+      </if>
+      <if test="deleted_at != null">
+        deleted_at = #{deleted_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.edu.hust.domain.Attachments">
+    update attachments
+    set created_at = #{created_at,jdbcType=TIMESTAMP},
+      updated_at = #{updated_at,jdbcType=TIMESTAMP},
+      filename = #{filename,jdbcType=VARCHAR},
+      fileextension = #{fileextension,jdbcType=VARCHAR},
+      mimetype = #{mimetype,jdbcType=VARCHAR},
+      filesize = #{filesize,jdbcType=BIGINT},
+      deleted_at = #{deleted_at,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.hust.domain.Attachments">
+    update attachments
+    set created_at = #{created_at,jdbcType=TIMESTAMP},
+      updated_at = #{updated_at,jdbcType=TIMESTAMP},
+      filename = #{filename,jdbcType=VARCHAR},
+      fileextension = #{fileextension,jdbcType=VARCHAR},
+      mimetype = #{mimetype,jdbcType=VARCHAR},
+      filesize = #{filesize,jdbcType=BIGINT},
+      deleted_at = #{deleted_at,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hust.mapper.MigrationsMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hust.domain.Migrations" >
+    <result column="migration" property="migration" jdbcType="VARCHAR" />
+    <result column="batch" property="batch" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.edu.hust.domain.Migrations" >
+    insert into migrations (migration, batch)
+    values (#{migration,jdbcType=VARCHAR}, #{batch,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.hust.domain.Migrations" >
+    insert into migrations
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="migration != null" >
+        migration,
+      </if>
+      <if test="batch != null" >
+        batch,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="migration != null" >
+        #{migration,jdbcType=VARCHAR},
+      </if>
+      <if test="batch != null" >
+        #{batch,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
