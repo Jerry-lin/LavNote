@@ -1,6 +1,9 @@
 package cn.edu.hust.mapper;
 
 import cn.edu.hust.domain.Versions;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface VersionsMapper {
     int deleteByPrimaryKey(String id);
@@ -16,4 +19,6 @@ public interface VersionsMapper {
     int updateByPrimaryKeyWithBLOBs(Versions record);
 
     int updateByPrimaryKey(Versions record);
+
+    List<Versions> findVersionsListByVIds(@Param("versionIds") List<String> versionIds);
 }

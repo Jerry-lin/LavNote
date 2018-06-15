@@ -1,9 +1,12 @@
 package cn.edu.hust.domain;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class NoteBooks {
+public class NoteBooks implements Serializable{
     private String id;
 
     private String parent_id;
@@ -18,6 +21,7 @@ public class NoteBooks {
 
     private Timestamp deleted_at;
 
+    private List<NoteBooks> children=new ArrayList<>();
 
     public NoteBooks() {
     }
@@ -83,5 +87,13 @@ public class NoteBooks {
 
     public void setDeleted_at(Timestamp deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public List<NoteBooks> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<NoteBooks> children) {
+        this.children = children;
     }
 }

@@ -2,14 +2,18 @@ package cn.edu.hust.dao;
 
 import cn.edu.hust.domain.Versions;
 import cn.edu.hust.mapper.VersionsMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Version;
+import java.util.List;
 
 @Repository
-public class VersionDaoImpl implements VersionsMapper{
+public class VersionDaoImpl implements VersionsMapper
+
+{
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
 
@@ -47,5 +51,11 @@ public class VersionDaoImpl implements VersionsMapper{
     @Override
     public int updateByPrimaryKey(Versions record) {
         return 0;
+    }
+
+    @Override
+    public List<Versions> findVersionsListByVIds(@Param("versionIds") List<String> versionIds) {
+        String sql="cn.edu.hust.mapper.VersionsMapper.findVersionsListByVIds";
+        return this.sqlSessionFactory.openSession().selectList(sql,versionIds);
     }
 }

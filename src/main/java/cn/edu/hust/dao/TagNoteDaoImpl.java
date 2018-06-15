@@ -2,9 +2,12 @@ package cn.edu.hust.dao;
 
 import cn.edu.hust.domain.TagNote;
 import cn.edu.hust.mapper.TagNoteMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class TagNoteDaoImpl implements TagNoteMapper{
@@ -40,5 +43,11 @@ public class TagNoteDaoImpl implements TagNoteMapper{
     @Override
     public int updateByPrimaryKey(TagNote record) {
         return 0;
+    }
+
+    @Override
+    public List<TagNote> findTagNoteListByNId(@Param("notesIds") List<String> notesIds) {
+        String sql="cn.edu.hust.mapper.TagNoteMapper.findTagNoteListByNId";
+        return this.sqlSessionFactory.openSession().selectList(sql,notesIds);
     }
 }

@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,6 +47,20 @@
     <div class="guest-logo">
         <img class="guest-logo-img" src="/images/paperwork-logo.png">
     </div>
+
+
+    <c:choose>
+        <c:when test="${responseMsg.status eq 302}">
+            <div class="alert alert-danger" role="alert">
+                    ${responseMsg.response}
+            </div>
+        </c:when>
+        <c:when test="${responseMsg.status eq 200}">
+            <script>
+                window.href="/page/login";
+            </script>
+        </c:when>
+    </c:choose>
 
 
     <form method="POST" action="/user/login" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="AvbovhxHMFQCAlR3GGQHC0YkPZcSGuX74vcdp6mc">

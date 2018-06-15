@@ -2,12 +2,15 @@ package cn.edu.hust.dao;
 
 import cn.edu.hust.domain.NoteBooks;
 import cn.edu.hust.mapper.NoteBooksMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public class NoteBooksDaoImpl implements NoteBooksMapper {
+public class NoteBooksDaoImpl implements NoteBooksMapper{
 
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
@@ -41,5 +44,11 @@ public class NoteBooksDaoImpl implements NoteBooksMapper {
     @Override
     public int updateByPrimaryKey(NoteBooks record) {
         return 0;
+    }
+
+    @Override
+    public List<NoteBooks> findALLNoteBooksByIds(@Param("noteBooksIds") List<String> noteBooksIds) {
+        String sql="cn.edu.hust.mapper.NoteBooksMapper.findALLNoteBooksByIds";
+        return this.sqlSessionFactory.openSession().selectList(sql,noteBooksIds);
     }
 }

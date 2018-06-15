@@ -1,6 +1,8 @@
 package cn.edu.hust.domain;
 
-public class Sessions {
+import java.io.Serializable;
+
+public class Sessions implements Serializable{
     private String id;
 
     private Integer last_activity;

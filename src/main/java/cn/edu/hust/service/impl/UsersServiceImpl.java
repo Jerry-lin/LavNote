@@ -7,6 +7,8 @@ import cn.edu.hust.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 public class UsersServiceImpl implements UsersService{
     @Autowired
@@ -65,4 +67,11 @@ public class UsersServiceImpl implements UsersService{
         this.tagNoteMapper.insert(tagNote);
 
     }
+
+    @Override
+    public Users findUserByUserAndPassword(HashMap<String, String> map) {
+        return this.usersMapper.findUserByUserAndPassword(map);
+    }
+
+
 }

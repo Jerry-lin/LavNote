@@ -34,4 +34,10 @@ public class PageController {
     {
         return "home/main";
     }
+    
+    @RequestMapping("/note")
+    public String main()
+    {
+        return "note/main";
+    }
 }

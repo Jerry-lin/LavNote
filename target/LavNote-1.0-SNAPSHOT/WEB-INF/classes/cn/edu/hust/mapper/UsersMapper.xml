@@ -163,4 +163,7 @@
       #{deleted_at,jdbcType=TIMESTAMP})
   </insert>
 
+  <select id="findUserByUserAndPassword" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+     SELECT *FROM users where username= #{username,jdbcType=VARCHAR} and password=#{password,jdbcType=VARCHAR}
+  </select>
 </mapper>

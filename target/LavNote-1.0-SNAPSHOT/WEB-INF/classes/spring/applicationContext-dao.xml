@@ -23,22 +23,6 @@
         <property name="maxIdle" value="${maxIdle}"/>
     </bean>
 
-    <hdp:configuration id="hadoopConfiguration">
-        fs.defaultFS="hdfs://node1:9000
-    </hdp:configuration>
-
-    <hdp:file-system id="hadoop-cluster" uri="hdfs://10.211.55.16:9000/" user="hadoop"/>
-
-    <hdp:hbase-configuration configuration-ref="hadoopConfiguration" zk-quorum="node1,node2,node3,node4" zk-port="2181">
-        hbase.rootdir=hdfs://node1:9000/hbase
-        dfs.replication=3
-        dfs.client.socket-timeout=600000
-    </hdp:hbase-configuration>
-
-    <bean id="hbaseTemplate" class="org.springframework.data.hadoop.hbase.HbaseTemplate">
-        <property name="configuration" ref="hbaseConfiguration" />
-    </bean>
-
     <bean id="jedisConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxTotal" value="${redis.maxActive}"></property>
         <property name="maxIdle" value="${redis.maxIdle}"></property>

@@ -2,6 +2,8 @@ package cn.edu.hust.mapper;
 
 import cn.edu.hust.domain.NoteBookUser;
 
+import java.util.List;
+
 public interface NoteBookUserMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,6 @@ public interface NoteBookUserMapper {
     int updateByPrimaryKeySelective(NoteBookUser record);
 
     int updateByPrimaryKey(NoteBookUser record);
+
+    List<NoteBookUser> findNoteBookUserListByUID(String uid);
 }

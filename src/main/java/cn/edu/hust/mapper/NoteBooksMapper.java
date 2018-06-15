@@ -1,6 +1,9 @@
 package cn.edu.hust.mapper;
 
 import cn.edu.hust.domain.NoteBooks;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface NoteBooksMapper {
     int deleteByPrimaryKey(String id);
@@ -14,4 +17,6 @@ public interface NoteBooksMapper {
     int updateByPrimaryKeySelective(NoteBooks record);
 
     int updateByPrimaryKey(NoteBooks record);
+
+    List<NoteBooks> findALLNoteBooksByIds(@Param("noteBooksIds") List<String> noteBooksIds);
 }

@@ -1,9 +1,10 @@
 package cn.edu.hust.domain;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class PasswordReminders {
+public class PasswordReminders implements Serializable{
     private String email;
 
     private String token;

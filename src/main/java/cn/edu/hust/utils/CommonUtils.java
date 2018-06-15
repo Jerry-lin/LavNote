@@ -2,6 +2,8 @@ package cn.edu.hust.utils;
 
 import sun.misc.BASE64Encoder;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,4 +38,26 @@ public class CommonUtils {
         return t;
     }
 
+
+    /**
+     * 查找cookie,返回Cookie的值
+     * @param request
+     * @param key
+     * @return
+     */
+    public static String showCookies(HttpServletRequest request, String key){
+        Cookie[] cookies = request.getCookies();//根据请求数据，找到cookie数组
+        for(Cookie cookie : cookies){
+            if(cookie==null)
+            {
+                return "";
+            }
+            else if(key.equals(cookie.getName()))
+            {
+                return cookie.getValue();
+            }
+
+        }
+        return "";
+    }
 }

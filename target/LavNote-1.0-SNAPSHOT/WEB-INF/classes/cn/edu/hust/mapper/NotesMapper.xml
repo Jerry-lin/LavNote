@@ -103,4 +103,14 @@
       deleted_at = #{deleted_at,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=CHAR}
   </update>
+
+  <select id="findNotesListByNBId" resultMap="BaseResultMap">
+    SELECT *
+    FROM notes
+    WHERE notebook_id in
+    <foreach item="item" index="index" collection="noteBooksIds"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
 </mapper>

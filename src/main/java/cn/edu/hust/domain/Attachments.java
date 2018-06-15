@@ -1,9 +1,10 @@
 package cn.edu.hust.domain;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class Attachments {
+public class Attachments implements Serializable{
     private String id;
 
     private Timestamp created_at=new Timestamp(System.currentTimeMillis());

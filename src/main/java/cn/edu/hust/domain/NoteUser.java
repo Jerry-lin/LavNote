@@ -1,9 +1,10 @@
 package cn.edu.hust.domain;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class NoteUser {
+public class NoteUser implements Serializable{
     private Long id;
 
     private String user_id;

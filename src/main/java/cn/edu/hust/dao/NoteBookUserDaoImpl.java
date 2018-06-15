@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class NoteBookUserDaoImpl implements NoteBookUserMapper{
     @Autowired
@@ -40,5 +42,11 @@ public class NoteBookUserDaoImpl implements NoteBookUserMapper{
     @Override
     public int updateByPrimaryKey(NoteBookUser record) {
         return 0;
+    }
+
+    @Override
+    public List<NoteBookUser> findNoteBookUserListByUID(String uid) {
+        String sql="cn.edu.hust.mapper.NoteBookUserMapper.findNoteBookUserListByUID";
+        return this.sqlSessionFactory.openSession().selectList(sql,uid);
     }
 }

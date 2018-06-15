@@ -2,11 +2,12 @@ package cn.edu.hust.domain;
 
 import org.apache.commons.net.ntp.TimeStamp;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class AttachmentVersion {
+public class AttachmentVersion implements Serializable{
     private Long id;
 
     private String attachment_id;

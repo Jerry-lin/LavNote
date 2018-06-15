@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page isELIgnored="false" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Paperwork (http://paperwork.rocks)">
+    <meta name="author" content="Paperwork (.rocks)">
 
     <meta name="theme-color" content="#03a9f4">
     <meta name="apple-mobile-web-app-status-bar-style" content="#03a9f4">
@@ -19,7 +23,7 @@
     <link rel="apple-touch-icon" sizes="152x152" href="/images/paperwork-icons/favicon-152x152.png">
 
 
-    <link rel="manifest" href="/manifests/homescreen-manifest.json">
+    <link rel="manifest" href="manifests/homescreen-manifest.json">
     <title>Paperwork</title>
 
     <!-- <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
@@ -53,7 +57,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">展开导航</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -81,46 +85,46 @@
 
             <ul class="nav navbar-nav animate-panel" ng-cloak ng-show="navbarMainMenu">
                 <li class="dropdown">
-                    <a id="menu-item-file" href="" class="dropdown-toggle transition-effect" data-toggle="dropdown">File <span class="caret"></span></a>
+                    <a id="menu-item-file" href="" class="dropdown-toggle transition-effect" data-toggle="dropdown">文件 <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li ng-controller="SidebarNotesController" class="{{ menuItemNotebookClass() }}">
-                            <a id="menu-item-file-sub-new_note" href="" ng-click="newNote(getNotebookSelectedId())"><i class="fa fa-file"></i> New note</a>
+                            <a id="menu-item-file-sub-new_note" href="" ng-click="newNote(getNotebookSelectedId())"><i class="fa fa-file"></i> 创建笔记</a>
                         </li>
                         <li ng-controller="SidebarNotebooksController">
-                            <a id="menu-item-file-sub-new_notebook" href="" ng-click="modalNewNotebook()"><i class="fa fa-book"></i> New notebook</a>
+                            <a id="menu-item-file-sub-new_notebook" href="" ng-click="modalNewNotebook()"><i class="fa fa-book"></i> 创建笔记本</a>
                         </li>
                         <li ng-controller="SidebarNotebooksController">
-                            <a id="menu-item-file-sub-new_collection" href="" ng-click="modalNewCollection()"><i class="fa fa-folder"></i> New collection</a>
+                            <a id="menu-item-file-sub-new_collection" href="" ng-click="modalNewCollection()"><i class="fa fa-folder"></i> 创建收藏夹</a>
                         </li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a id="menu-item-edit" href="" class="dropdown-toggle transition-effect" data-toggle="dropdown">Edit <span class="caret"></span></a>
+                    <a id="menu-item-edit" href="" class="dropdown-toggle transition-effect" data-toggle="dropdown">编辑 <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li ng-controller="SidebarNotesController" class="{{ menuItemNoteClass('single') }}">
-                            <a id="menu-item-edit-sub-edit_note" href="" ng-click="editNote(getNotebookSelectedId(), (getNoteSelectedId(true).noteId))"><i class="fa fa-pencil"></i> Edit note</a>
+                            <a id="menu-item-edit-sub-edit_note" href="" ng-click="editNote(getNotebookSelectedId(), (getNoteSelectedId(true).noteId))"><i class="fa fa-pencil"></i> 编辑笔记</a>
                         </li>
                         <li ng-controller="SidebarNotesController" class="{{ menuItemNoteClass('multiple') }}">
-                            <a id="menu-item-edit-sub-edit_notes" href="" ng-click="editNotes(getNotebookSelectedId())"><i class="fa fa-files-o"></i> <span ng-hide="editMultipleNotes">Edit multiple notes...</span><span ng-show="editMultipleNotes">Stop editing multiple notes</span></a>
+                            <a id="menu-item-edit-sub-edit_notes" href="" ng-click="editNotes(getNotebookSelectedId())"><i class="fa fa-files-o"></i> <span ng-hide="editMultipleNotes">多条笔记编辑...</span><span ng-show="editMultipleNotes">停止多条笔记编辑</span></a>
                         </li>
                         <li ng-controller="SidebarNotesController" class="{{ menuItemNoteClass('multiple') }}">
-                            <a id="menu-item-edit-sub-move_note" href="" ng-click="modalMoveNote(getNotebookSelectedId(), (getNoteSelectedId(true)).noteId)"><i class="fa fa-arrow-right"></i> <span ng-hide="editMultipleNotes">Move note</span><span ng-show="editMultipleNotes">Move notes</span></a>
+                            <a id="menu-item-edit-sub-move_note" href="" ng-click="modalMoveNote(getNotebookSelectedId(), (getNoteSelectedId(true)).noteId)"><i class="fa fa-arrow-right"></i> <span ng-hide="editMultipleNotes">移动笔记</span><span ng-show="editMultipleNotes">移动多条笔记</span></a>
                         </li>
                         <li ng-controller="SidebarNotesController" class="{{ menuItemNoteClass('multiple') }}">
                             <a id="menu-item-edit-sub-share_note" href="" ng-click="modalShareNote(getNotebookSelectedId(), (getNoteSelectedId(true)).noteId)"><i class="fa fa-share-alt"></i> <span ng-hide="editMultipleNotes">Share note</span><span ng-show="editMultipleNotes">Share notes</span></a>
                         </li>
                         <li ng-controller="SidebarNotesController" class="{{ menuItemNoteClass('multiple') }}">
-                            <a id="menu-item-edit-sub-delete_note" href="" ng-click="modalDeleteNote(getNotebookSelectedId(), (getNoteSelectedId(true)).noteId)"><i class="fa fa-trash-o"></i> <span ng-hide="editMultipleNotes">Delete note</span><span ng-show="editMultipleNotes">Delete notes</span></a>
+                            <a id="menu-item-edit-sub-delete_note" href="" ng-click="modalDeleteNote(getNotebookSelectedId(), (getNoteSelectedId(true)).noteId)"><i class="fa fa-trash-o"></i> <span ng-hide="editMultipleNotes">删除笔记</span><span ng-show="editMultipleNotes">删除多条笔记</span></a>
                         </li>
                         <li class="divider"></li>
                         <li ng-controller="SidebarNotebooksController" class="{{ menuItemNotebookClass() }}">
-                            <a id="menu-item-edit-sub-edit_notebook" href="" ng-click="modalEditNotebook(getNotebookSelectedId())"><i class="fa fa-pencil"></i> Edit notebook</a>
+                            <a id="menu-item-edit-sub-edit_notebook" href="" ng-click="modalEditNotebook(getNotebookSelectedId())"><i class="fa fa-pencil"></i> 编辑笔记本</a>
                         </li>
                         <li ng-controller="SidebarNotebooksController" class="{{ menuItemNotebookClass() }}">
                             <a id="menu-item-edit-sub-share_notebook" href="" ng-click="modalShareNotebook(getNotebookSelectedId())"><i class="fa fa-share-alt"></i> Share notebook</a>
                         </li>
                         <li ng-controller="SidebarNotebooksController" class="{{ menuItemNotebookClass() }}">
-                            <a id="menu-item-edit-sub-delete_notebook" href="" ng-click="modalDeleteNotebook(getNotebookSelectedId())"><i class="fa fa-trash-o"></i> Delete notebook</a>
+                            <a id="menu-item-edit-sub-delete_notebook" href="" ng-click="modalDeleteNotebook(getNotebookSelectedId())"><i class="fa fa-trash-o"></i> 删除笔记本</a>
                         </li>
                     </ul>
                 </li>
@@ -128,13 +132,13 @@
 
             <form ng-controller="SidebarNotesController" ng-cloak ng-show="navbarSearchForm" class="navbar-form navbar-left animate-panel" id="searchForm" role="form" ng-submit="submitSearch()">
                 <div class="form-group">
-                    <input type="text" class="form-control navbar-search" placeholder="Search..." ng-model="search">
+                    <input type="text" class="form-control navbar-search" placeholder="搜索..." ng-model="search">
                 </div>
             </form>
 
             <ul class="nav navbar-nav navbar-right">
                 <!-- Show hover titles for small and medium screens -->
-                <li class="hidden-xs hidden-lg" title="Library">
+                <li class="hidden-xs hidden-lg" title="笔记本">
                     <a href="#/" class="transition-effect">
                         <i class="fa fa-book"></i>
                     </a>
@@ -145,13 +149,13 @@
                     <a href="#/" class="transition-effect">
                         <i class="fa fa-book"></i>
                         <span>
-			Library
+			笔记本
 		</span>
                     </a>
                 </li>
 
                 <!-- Show hover titles for small and medium screens -->
-                <li class="hidden-xs hidden-lg" title="Profile">
+                <li class="hidden-xs hidden-lg" title="个人资料">
                     <a href="/profile" class="transition-effect">
                         <i class="fa fa-user"></i>
                     </a>
@@ -162,13 +166,13 @@
                     <a href="/profile" class="transition-effect">
                         <i class="fa fa-user"></i>
                         <span>
-			Profile
+			个人资料
 		</span>
                     </a>
                 </li>
 
                 <!-- Show hover titles for small and medium screens -->
-                <li class="hidden-xs hidden-lg" title="Settings">
+                <li class="hidden-xs hidden-lg" title="设置">
                     <a href="/settings" class="transition-effect">
                         <i class="fa fa-cog"></i>
                     </a>
@@ -179,30 +183,14 @@
                     <a href="/settings" class="transition-effect">
                         <i class="fa fa-cog"></i>
                         <span>
-			Settings
+			设置
 		</span>
                     </a>
                 </li>
 
-                <!-- Show hover titles for small and medium screens -->
-                <li class="hidden-xs hidden-lg" title="Admin Area">
-                    <a href="/admin" class="transition-effect">
-                        <i class="fa fa-star"></i>
-                    </a>
-                </li>
-
-                <!-- Show actual titles for large and extra small screens -->
-                <li class="hidden-sm hidden-md">
-                    <a href="/admin" class="transition-effect">
-                        <i class="fa fa-star"></i>
-                        <span>
-			Admin Area
-		</span>
-                    </a>
-                </li>
 
                 <!-- Show hover titles for small and medium screens -->
-                <li class="hidden-xs hidden-lg" title="Help">
+                <li class="hidden-xs hidden-lg" title="帮助">
                     <a href="/help" class="transition-effect">
                         <i class="fa fa-question"></i>
                     </a>
@@ -213,12 +201,12 @@
                     <a href="/help" class="transition-effect">
                         <i class="fa fa-question"></i>
                         <span>
-			Help
+			帮助
 		</span>
                     </a>
                 </li>
                 <!-- Show hover titles for small and medium screens -->
-                <li class="hidden-xs hidden-lg" title="Sign out">
+                <li class="hidden-xs hidden-lg" title="注销">
                     <a href="/logout" class="transition-effect">
                         <i class="fa fa-sign-out"></i>
                     </a>
@@ -229,7 +217,7 @@
                     <a href="/logout" class="transition-effect">
                         <i class="fa fa-sign-out"></i>
                         <span>
-			Sign out
+			注销
 		</span>
                     </a>
                 </li>
@@ -242,9 +230,9 @@
 <div ng-controller="MessageBoxController" class="modal fade" id="modalMessageBox" tabindex="-1" role="dialog" aria-labelledby="modalMessageBoxLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="z3TqkUmmBWPxsuYZSlgHk75BtGJzOabv8wZMKSOX">
+            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="wf2VpnG6nDRCKc5QPyxiHiaDVljXs8frW5q0rqk1">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
                     <h4 class="modal-title" id="modalMessageBoxLabel">
                         {{ modalMessageBox.title }}
                     </h4>
@@ -266,25 +254,25 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="modalNotebookLabel">
-                        {{ modalNotebook.action == 'create' ? 'New notebook' : '' }}
-                        {{ modalNotebook.action == 'edit' ? 'Edit notebook' : '' }}
+                        {{ modalNotebook.action == 'create' ? '创建笔记本' : '' }}
+                        {{ modalNotebook.action == 'edit' ? '编辑笔记本' : '' }}
                     </h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group ">
-                        <input ng-model="modalNotebook.title" class="form-control" placeholder="Enter notebook title" required="required" autofocus="autofocus" name="title" type="text" value="">
+                        <input ng-model="modalNotebook.title" class="form-control" placeholder="输入笔记本名称" required="required" autofocus="autofocus" name="title" type="text" value="">
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="add_shortcut" ng-model="modalNotebook.shortcut"> Add this notebook to my shortcuts
+                            <input type="checkbox" name="add_shortcut" ng-model="modalNotebook.shortcut"> 添加笔记本到快捷方式
                         </label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary" ng-click="modalNotebookSubmit()">
-                        {{ modalNotebook.action == 'create' ? 'Create' : '' }}
-                        {{ modalNotebook.action == 'edit' ? 'Update' : '' }}
+                        {{ modalNotebook.action == 'create' ? '创建' : '' }}
+                        {{ modalNotebook.action == 'edit' ? '更新' : '' }}
                     </button>
                 </div>
             </form>
@@ -294,7 +282,7 @@
 <div ng-controller="SidebarNotebooksController" class="modal fade" id="modalNotebookSelect" tabindex="-1" role="dialog" aria-labelledby="modalNotebookSelectLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="z3TqkUmmBWPxsuYZSlgHk75BtGJzOabv8wZMKSOX">
+            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="wf2VpnG6nDRCKc5QPyxiHiaDVljXs8frW5q0rqk1">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="modalNotebookSelectLabel">
@@ -329,8 +317,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="modalNotebookSelectSubmit(modalMessageBox.notebookId, modalMessageBox.noteId, notebookSelectedModel)">Select</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="modalNotebookSelectSubmit(modalMessageBox.notebookId, modalMessageBox.noteId, notebookSelectedModel)">选择</button>
                 </div>
             </form>
         </div>
@@ -342,7 +330,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="modalManageTagsLabel">
-                    Manage tags
+                    管理标签
                 </h4>
             </div>
             <div class="modal-body">
@@ -369,7 +357,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
@@ -380,7 +368,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="modalManageNotebooksLabel">
-                    Manage notebooks
+                    管理笔记本
                 </h4>
             </div>
             <div class="modal-body">
@@ -399,8 +387,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary pull-left" ng-click="addNotebook();">New notebook</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary pull-left" ng-click="addNotebook();">创建笔记本</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
@@ -408,7 +396,7 @@
 <div ng-controller="SidebarNotesController" class="modal fade" id="modalUsersSelect" tabindex="-1" role="dialog" aria-labelledby="modalUsersSelectLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="z3TqkUmmBWPxsuYZSlgHk75BtGJzOabv8wZMKSOX">
+            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="wf2VpnG6nDRCKc5QPyxiHiaDVljXs8frW5q0rqk1">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="modalUsersSelectLabel">
@@ -441,8 +429,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" ng-click="modalUsersSelectInherit(modalMessageBox.notebookId)">Inherit from notebook</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="modalUsersSelectSubmit(modalMessageBox.notebookId, modalMessageBox.noteId, users)">Select</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="modalUsersSelectSubmit(modalMessageBox.notebookId, modalMessageBox.noteId, users)">选择</button>
                 </div>
             </form>
         </div>
@@ -451,7 +439,7 @@
 <div ng-controller="SidebarNotebooksController" class="modal fade" id="modalUsersNotebookSelect" tabindex="-1" role="dialog" aria-labelledby="modalUsersNotebookSelectLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="z3TqkUmmBWPxsuYZSlgHk75BtGJzOabv8wZMKSOX">
+            <form method="POST" action="" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="wf2VpnG6nDRCKc5QPyxiHiaDVljXs8frW5q0rqk1">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="modalUsersSelectLabel">
@@ -490,8 +478,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" ng-click="modalUsersNotebookSelectSubmit(modalMessageBox.notebookId, users, propagationToNotes)">Select</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="modalUsersNotebookSelectSubmit(modalMessageBox.notebookId, users, propagationToNotes)">选择</button>
                 </div>
             </form>
         </div>
@@ -527,10 +515,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary" ng-click="modalCollectionSubmit()">
-                        {{ modalCollection.action == 'create' ? 'Create' : '' }}
-                        {{ modalCollection.action == 'edit' ? 'Update' : '' }}
+                        {{ modalCollection.action == 'create' ? '创建' : '' }}
+                        {{ modalCollection.action == 'edit' ? '更新' : '' }}
                     </button>
                 </div>
             </form>
@@ -543,11 +531,11 @@
             <form method="POST" accept-charset="UTF-8" class="form ng-pristine ng-invalid ng-invalid-required" role="form" ng-submit="modalNotebookDeleteSubmit()">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="modalNotebookDeleteLabel">Delete notebook{{ modalNotebookDelete.notebookTitle ? ' ' + modalNotebookDelete.notebookTitle : '' }}?</h4>
+                    <h4 class="modal-title" id="modalNotebookDeleteLabel">删除笔记本{{ modalNotebookDelete.notebookTitle ? ' ' + modalNotebookDelete.notebookTitle : '' }}?</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group ">
-                        This will delete the selected notebook and all its notes. Are you sure?
+                        将会删除笔记本以及笔记本中的所有笔记，确认操作？
                     </div>
                     <div class="checkbox">
                         <label>
@@ -556,7 +544,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-warning" ng-click="modalNotebookDeleteSubmit()">Yes</button>
                 </div>
             </form>
@@ -576,7 +564,7 @@
                     <div class="tree">
                         <ul class="tree-base">
                             <li>
-                                <span class="tree-header tree-header-shortcuts" title="Click to {{ shortcutsCollapsed ? 'Expand' : 'Collapse' }}" ng-click="shortcutsCollapsed=!shortcutsCollapsed"><i class="fa {{ shortcutsCollapsed ? 'fa-chevron-right' : 'fa-chevron-down' }}"></i> Shortcuts</span>
+                                <span class="tree-header tree-header-shortcuts" title="Click to {{ shortcutsCollapsed ? 'Expand' : 'Collapse' }}" ng-click="shortcutsCollapsed=!shortcutsCollapsed"><i class="fa {{ shortcutsCollapsed ? 'fa-chevron-right' : 'fa-chevron-down' }}"></i> 快捷方式</span>
                                 <ul class="tree-child" collapse="shortcutsCollapsed">
                                     <li class="tree-notebook" ng-repeat="shortcut in shortcuts | orderBy:'sortkey'" ng-cloak>
                                         <span ng-click="openNotebook(shortcut.id, shortcut.type, notebook.id)" ng-class="{ 'active': notebook.id == getNotebookSelectedId() }"><i class="fa fa-book"></i> {{shortcut.title}}</span>
@@ -584,7 +572,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <span class="tree-header tree-header-notebooks" title="Click to {{ notebooksCollapsed ? 'Expand' : 'Collapse' }}" ng-click="notebooksCollapsed=!notebooksCollapsed"><i class="fa {{ notebooksCollapsed ? 'fa-chevron-right' : 'fa-chevron-down' }}"></i> Notebooks <button class="btn btn-default btn-xs pull-right" ng-click="modalManageNotebooks();$event.stopPropagation();" title="Manage notebooks"><span class="fa fa-pencil"></span></button></span>
+                                <span class="tree-header tree-header-notebooks" title="Click to {{ notebooksCollapsed ? 'Expand' : 'Collapse' }}" ng-click="notebooksCollapsed=!notebooksCollapsed"><i class="fa {{ notebooksCollapsed ? 'fa-chevron-right' : 'fa-chevron-down' }}"></i> 笔记本 <button class="btn btn-default btn-xs pull-right" ng-click="modalManageNotebooks();$event.stopPropagation();" title="管理笔记本"><span class="fa fa-pencil"></span></button></span>
                                 <ul class="tree-child" collapse="notebooksCollapsed">
                                     <li class="tree-notebook" ng-repeat="notebook in notebooks | orderBy:'title'" ng-cloak>
                                         <div class="notebook-title" ng-click="openNotebook(notebook.id, notebook.type, notebook.id)" ng-class="{ 'active': notebook.id == getNotebookSelectedId() }" ng-drop="true" ng-drop-success="onDropSuccess($data,$event)"><i class="fa" ng-class="isCollectionOpen(notebook.id) ? 'fa-folder-open' : notebookIconByType(notebook.type)"></i> {{notebook.title}}</div>
@@ -597,7 +585,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <span class="tree-header tree-header-tags" title="Click to {{ tagsCollapsed ? 'Expand' : 'Collapse' }}" ng-click="tagsCollapsed=!tagsCollapsed"><i class="fa {{ tagsCollapsed ? 'fa-chevron-right' : 'fa-chevron-down' }}"></i> Tags <button class="btn btn-default btn-xs pull-right" ng-click="modalManageTags();$event.stopPropagation();" title="Manage tags"><span class="fa fa-pencil"></span></button></span>
+                                <span class="tree-header tree-header-tags" title="Click to {{ tagsCollapsed ? 'Expand' : 'Collapse' }}" ng-click="tagsCollapsed=!tagsCollapsed"><i class="fa {{ tagsCollapsed ? 'fa-chevron-right' : 'fa-chevron-down' }}"></i> 标签 <button class="btn btn-default btn-xs pull-right" ng-click="modalManageTags();$event.stopPropagation();" title="管理标签"><span class="fa fa-pencil"></span></button></span>
                                 <ul class="tree-child" collapse="tagsCollapsed">
                                     <li class="tree-tag" ng-repeat="tag in tags | orderBy:'title':reverse" >
                                         <span class="tree-child tag-parent" ng-click="tag.collapsed=!tag.collapsed"><i class="fa {{ tag.collapsed ? 'fa-chevron-right' : 'fa-chevron-down' }}" ng-show="(tag.children.length > 0)"></i></span><div class="tree-child" ng-click="openTag(tag.id)" ng-class="{ 'active': tag.id == tagsSelectedId }" ng-drop="true" ng-drop-success="onDropToTag($data, $event)" ng-drag="(tag.children.length == 0)" ng-drag-success="onDragSuccess($data, $event)" ng-drag-data="tag"><i class="fa fa-tag" ng-show="(tag.children.length == 0)"></i> {{tag.title}}</div>
@@ -635,7 +623,7 @@
                         </select>
                     </p>
                     <p class="text-center new-note-notes-list-button">
-                        <a ng-controller="SidebarNotesController" ng-click="newNote(getNotebookSelectedId())" href><i class="fa fa-plus"></i> New note</a>
+                        <a ng-controller="SidebarNotesController" ng-click="newNote(getNotebookSelectedId())" href><i class="fa fa-plus"></i> 创建笔记</a>
                     </p>
                 </div>
                 <ul id="notes-list" class="nav nav-sidebar notes-list sidebar-no-border" ng-controller="NotesListController" ng-class="sidebarCollapsed ? 'sidebar-collapsed-notes-list' : ''">
@@ -691,7 +679,7 @@
     <div class="footer footer-issue " ondblclick="$(this).hide()">
         <div class="error-reporting">
             <div class="alert alert-warning" role="alert">
-                <p>Found a bug? LavNote cannot connect to Github to check the latest version. A solution to this can be installling the curl Java extension. This is not mandatory, however before reporting any issues, please make sure that you are using the latest version.  </p>
+                <p>发现BUG？ Paperwork 无法检测当前是否为最新版，请在提交 Issue 前确保已经更新至最新版</p>
                 <p>Double click to dismiss.
             </div>
         </div>
@@ -703,7 +691,7 @@
 
 <script src="/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
 
-<script src="/js/angular.min.js"></script>
+<script src="http://paperwork/js/angular.min.js"></script>
 
 
 <script src="/js/paperwork.min.js"></script>

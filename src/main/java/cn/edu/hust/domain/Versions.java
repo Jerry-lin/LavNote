@@ -1,9 +1,10 @@
 package cn.edu.hust.domain;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class Versions {
+public class Versions implements Serializable{
     private String id;
 
     private String previous_id;
@@ -23,6 +24,8 @@ public class Versions {
     private String user_id;
 
     private String content;
+
+    private Users user;
 
     public Versions() {
     }
@@ -115,5 +118,13 @@ public class Versions {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 }

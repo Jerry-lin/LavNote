@@ -1,6 +1,9 @@
 package cn.edu.hust.mapper;
 
 import cn.edu.hust.domain.Tags;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TagsMapper {
     int deleteByPrimaryKey(String id);
@@ -14,4 +17,8 @@ public interface TagsMapper {
     int updateByPrimaryKeySelective(Tags record);
 
     int updateByPrimaryKey(Tags record);
+
+    List<Tags> findListByUId(String id);
+
+    List<Tags> findTagsListByids(@Param("tagIds") List<String> tagIds);
 }

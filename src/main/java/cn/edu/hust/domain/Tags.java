@@ -1,9 +1,12 @@
 package cn.edu.hust.domain;
 
+import cn.edu.hust.utils.json.Pivot;
+
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class Tags {
+public class Tags implements Serializable{
     private String id;
 
     private Byte visibility;
@@ -19,6 +22,11 @@ public class Tags {
     private String user_id;
 
     private String parent_id;
+
+    private Pivot pivot;
+
+    public Tags() {
+    }
 
     public Tags(String id, Byte visibility, String title, String user_id, String parent_id) {
         this.id = id;
@@ -90,5 +98,13 @@ public class Tags {
 
     public void setParent_id(String parent_id) {
         this.parent_id = parent_id == null ? null : parent_id.trim();
+    }
+
+    public Pivot getPivot() {
+        return pivot;
+    }
+
+    public void setPivot(Pivot pivot) {
+        this.pivot = pivot;
     }
 }

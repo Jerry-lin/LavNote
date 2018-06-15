@@ -2,7 +2,9 @@ package cn.edu.hust.controller;
 
 import cn.edu.hust.domain.*;
 import cn.edu.hust.service.UsersService;
+import cn.edu.hust.service.jedis.RedisUtils;
 import cn.edu.hust.utils.CommonUtils;
+import cn.edu.hust.utils.Constant;
 import cn.edu.hust.utils.domain.ResponseMsg;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sun.misc.Version;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.UUID;
 
 @Controller
@@ -23,6 +29,9 @@ public class UserController {
 
     @Autowired
     private UsersService usersService;
+
+    @Autowired
+    private RedisUtils redisUtils;
     /**
      * 1.接受页面传递的参数,参数的具体类型有username、fristname、lastname、password、language.
         2.检查邮箱(username)是否注册，如果注册告知用户已经注册;否则进行第三步
@@ -88,11 +97,52 @@ public class UserController {
     }
 
 
+    /**
+     * 功能描述：用户登录
+     * 1.获取用户名和密码，根据两者查找
+     * 2.如果返回User为空，那么返回用户名和密码错误
+     * 3.登录成功，将cookie写入到客户端，转发到note/main.jsp
+     * @param username
+     * @param password
+     * @return
+     */
     @RequestMapping("/login")
-    public String login()
+    public String login(HttpServletResponse response,Model model, @RequestParam String username, @RequestParam String password)
     {
-        return "note/main";
+        String passwd=CommonUtils.encoderByMD5(password);
+        HashMap<String,String> map=new HashMap<>();
+        map.put("username",username);
+        map.put("password",passwd);
+        Users bean=this.usersService.findUserByUserAndPassword(map);
+        ResponseMsg<String> responseMsg=new ResponseMsg<>();
+        if(bean==null)
+        {
+
+            Users users=new Users();
+            users.setUsername(username);
+            users.setPassword(password);
+            responseMsg.setStatus(302);
+            responseMsg.setResponse("用户名或者密码错错误!");
+            model.addAttribute("responseMsg",responseMsg);
+            model.addAttribute("user",users);
+            return "home/main";
+        }
+        String token=UUID.randomUUID().toString().replace("-","");
+        redisUtils.set(token,bean,30*60L);
+        addCookie(response,token);
+        return "redirect:/page/note";
     }
+
+
+
+
+    private void addCookie(HttpServletResponse response,String token){
+        Cookie cookie = new Cookie(Constant.COOKIE_NAME,token);//创建新cookie
+        cookie.setMaxAge(30 * 60);// 设置存在时间为5分钟
+        cookie.setPath("/");//设置作用域
+        response.addCookie(cookie);//将cookie添加到response的cookie数组中返回给客户端
+    }
+
     private Notes param2Note(NoteBooks noteBooks, Versions versions) {
         String noteId= UUID.randomUUID().toString().replace("-","");
         Notes notes=new Notes(noteId,noteBooks.getId(),versions.getId());

@@ -1,6 +1,8 @@
 package cn.edu.hust.domain;
 
-public class Migrations {
+import java.io.Serializable;
+
+public class Migrations implements Serializable{
     private String migration;
 
     private Integer batch;

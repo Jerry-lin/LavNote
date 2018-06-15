@@ -169,4 +169,14 @@
       user_id = #{user_id,jdbcType=CHAR}
     where id = #{id,jdbcType=CHAR}
   </update>
+
+  <select id="findVersionsListByVIds" resultMap="BaseResultMap">
+    SELECT *
+    FROM versions
+    WHERE id in
+    <foreach item="item" index="index" collection="versionIds"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
 </mapper>

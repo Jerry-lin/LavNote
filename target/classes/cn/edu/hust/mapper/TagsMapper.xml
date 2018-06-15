@@ -123,4 +123,18 @@
       parent_id = #{parent_id,jdbcType=CHAR}
     where id = #{id,jdbcType=CHAR}
   </update>
+
+  <select id="findListByUId" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select * from tags where user_id = #{user_id,jdbcType=CHAR}
+  </select>
+
+  <select id="findTagsListByids" resultMap="BaseResultMap">
+    SELECT *
+    FROM tags
+    WHERE id in
+    <foreach item="item" index="index" collection="tagIds"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
 </mapper>
