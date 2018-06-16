@@ -7,8 +7,10 @@ import cn.edu.hust.utils.CommonUtils;
 import cn.edu.hust.utils.Constant;
 import cn.edu.hust.utils.domain.ResponseMsg;
 import cn.edu.hust.utils.json.NoteJson;
+import cn.edu.hust.utils.json.Pivot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,9 +41,9 @@ public class NoteController {
     @Autowired
     private TagsService tagsService;
 
-    @RequestMapping("showAllNotes")
+    @RequestMapping("/showNotesByNotebookId/{notebookId}")
     public @ResponseBody
-    ResponseMsg<List<NoteJson>> showAllNotes(HttpServletRequest request)
+    ResponseMsg<List<NoteJson>> showAllNotes(HttpServletRequest request,@PathVariable String notebookId)
     {
         String key=CommonUtils.showCookies(request, Constant.COOKIE_NAME);
         Users user=(Users) redisUtils.get(key);
@@ -49,27 +51,37 @@ public class NoteController {
         //1.1 现在redis中查询，如果redis中没有，那就在数据库中查询
         List<NoteBookUser> noteBookUserList=new ArrayList<>();
         List<String> noteBookIds=new ArrayList<>();
-        Long noteBooKUserListSize=redisUtils.lGetListSize(user.getId()+":"+Constant.NOTEBOOKUSER_SUFFIX);
-        if(noteBooKUserListSize==0)
+        if(Constant.ROOT_NOTEBOOKID.equals(notebookId))
         {
-            noteBookUserList=this.noteBookUserService.findNoteBookUserListByUID(user.getId());
-            //1.2将从数据库中查询的数据放入redis
-            for(NoteBookUser noteBookUser:noteBookUserList)
-            {
-                redisUtils.lSet(user.getId()+":"+Constant.NOTEBOOKUSER_SUFFIX,noteBookUser);
-            }
-        }else
-        {
-            noteBookUserList= Arrays.asList(redisUtils.lGet(user.getId()+":"+Constant.NOTEBOOKUSER_SUFFIX,0,noteBooKUserListSize).toArray(new NoteBookUser[0]));
-        }
 
+            Long noteBooKUserListSize=redisUtils.lGetListSize(user.getId()+":"+Constant.NOTEBOOKUSER_SUFFIX);
+            if(noteBooKUserListSize==0)
+            {
+                noteBookUserList=this.noteBookUserService.findNoteBookUserListByUID(user.getId());
+                //1.2将从数据库中查询的数据放入redis
+                for(NoteBookUser noteBookUser:noteBookUserList)
+                {
+                    redisUtils.lSet(user.getId()+":"+Constant.NOTEBOOKUSER_SUFFIX,noteBookUser);
+                }
+            }else
+            {
+                List<Object> objects=redisUtils.lGet(user.getId()+":"+Constant.NOTEBOOKUSER_SUFFIX,0,noteBooKUserListSize);
+                for(Object o:objects)
+                {
+                    noteBookUserList.add((NoteBookUser) o);
+                }
+            }
+
+            for(int i=0;i<noteBookUserList.size();i++)
+                noteBookIds.add(noteBookUserList.get(i).getNotebook_id());
+        }
+        else noteBookIds.add(notebookId);
         List<Notes> notesList=new ArrayList();
         //2.根据noteBookUserList的size不为空，那么根据notebook_id查询Notes
         //2.1redis中查询notes，如果没有就数据库查询
         if(noteBookUserList.size()!=0)
         {
-            for(int i=0;i<noteBookUserList.size();i++)
-                noteBookIds.add(noteBookUserList.get(i).getNotebook_id());
+
             Long notesSize=redisUtils.lGetListSize(user.getId()+":"+Constant.NOTES_SUFFIX);
             //2.2判断notes
             if(notesSize==0)
@@ -80,8 +92,12 @@ public class NoteController {
             }
             else
             {
-                notesList=Arrays.asList(redisUtils.lGet(user.getId()+":"+Constant.NOTES_SUFFIX,0,notesSize).toArray(new Notes[0]));
 
+                List<Object> objects=redisUtils.lGet(user.getId()+":"+Constant.NOTES_SUFFIX,0,notesSize);
+                for(Object o:objects)
+                {
+                    notesList.add((Notes) o);
+                }
             }
         }
 
@@ -104,7 +120,13 @@ public class NoteController {
                 for(TagNote tagNote:tagNoteList) redisUtils.lSet(user.getId()+":"+Constant.TAGNOTE_SUFFIX,tagNote);
             }
             else
-                tagNoteList=Arrays.asList(redisUtils.lGet(user.getId()+":"+Constant.TAGNOTE_SUFFIX,0,tagsNoteSize).toArray(new TagNote[0]));
+            {
+                List<Object> objects=redisUtils.lGet(user.getId()+":"+Constant.TAGNOTE_SUFFIX,0,tagsNoteSize);
+                for(Object o:objects)
+                {
+                    tagNoteList.add((TagNote) o);
+                }
+            }
         }
 
         //根据TagsNote查询相关的Tags
@@ -121,7 +143,13 @@ public class NoteController {
                 for(Tags tags:tagsList) redisUtils.lSet(user.getId()+":"+Constant.TAGS_SUFFIX,tags);
             }
             else
-                tagsList=Arrays.asList(redisUtils.lGet(user.getId()+":"+Constant.TAGS_SUFFIX,0,tagsSize).toArray(new Tags[0]));
+            {
+                List<Object> objects=redisUtils.lGet(user.getId()+":"+Constant.TAGS_SUFFIX,0,tagsSize);
+                for(Object o:objects)
+                {
+                    tagsList.add((Tags) o);
+                }
+            }
 
         }
 
@@ -136,7 +164,13 @@ public class NoteController {
                 for (Versions versions:versionsList) redisUtils.lSet(user.getId()+":"+Constant.VERSION_SUFFIX,versions);
             }
             else
-                versionsList=Arrays.asList(redisUtils.lGet(user.getId()+":"+Constant.VERSION_SUFFIX,0,versionListSize).toArray(new Versions[0]));
+            {
+                List<Object> objects=redisUtils.lGet(user.getId()+":"+Constant.VERSION_SUFFIX,0,versionListSize);
+                for(Object o:objects)
+                {
+                    versionsList.add((Versions) o);
+                }
+            }
         }
 
         HashMap<String,Versions> versionHashMap=new HashMap<>();
@@ -189,7 +223,11 @@ public class NoteController {
             List<String> tagIDs=tagNoteMap.get(note.getId());
             for(String tid:tagIDs)
             {
-                noteJson.getTags().add(tagsHashMap.get(tid));
+                Tags tags=tagsHashMap.get(tid);
+                Pivot pivot=new Pivot();
+                pivot.set(note.getId(),tid);
+                tags.setPivot(pivot);
+                noteJson.getTags().add(tags);
             }
             responseMsg.getResponse().add(noteJson);
         }

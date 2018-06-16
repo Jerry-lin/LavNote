@@ -19,4 +19,8 @@ public class Constant {
     public static final String NOTES_SUFFIX ="notes";
 
     public static final String VERSION_SUFFIX ="version";
+
+    public static final String ROOT_NOTEBOOKID="00000000-0000-0000-0000-000000000000";
+
+    public static final String SHORTCUTS_SUFFIX="shortcuts";
 }

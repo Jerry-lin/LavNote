@@ -108,7 +108,7 @@
     SELECT *
     FROM notes
     WHERE notebook_id in
-    <foreach item="item" index="index" collection="noteBooksIds"
+    <foreach item="item" index="index" collection="noteBookIds"
              open="(" separator="," close=")">
       #{item}
     </foreach>

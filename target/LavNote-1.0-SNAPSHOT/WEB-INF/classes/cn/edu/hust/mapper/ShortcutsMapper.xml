@@ -103,4 +103,8 @@
       updated_at = #{updated_at,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=CHAR}
   </update>
+
+  <select id="findShortcutsByUId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from shortcuts where user_id = #{user_id,jdbcType=CHAR}
+  </select>
 </mapper>

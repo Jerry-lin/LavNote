@@ -62,7 +62,7 @@ public class NoteBooksController {
                 }
                 List<NoteBooks> noteBooksList=this.noteBooksService.findALLNoteBooksByIds(noteBooksIds);
                 //放入redis
-                redisUtils.lSet(users.getId()+":"+Constant.NOTEBOOKUSER_SUFFIX,Constant.ROOT_NOTEBOOKS);
+                redisUtils.lSet(users.getId()+":"+Constant.NOTEBOOKS_SUFFIX,Constant.ROOT_NOTEBOOKS);
                 for(int i=0;i<noteBookUserList.size();i++)
                 {
                     redisUtils.lSet(users.getId()+":"+Constant.NOTEBOOKUSER_SUFFIX,noteBookUserList.get(i));

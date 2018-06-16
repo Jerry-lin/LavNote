@@ -2,6 +2,8 @@ package cn.edu.hust.mapper;
 
 import cn.edu.hust.domain.Shortcuts;
 
+import java.util.List;
+
 public interface ShortcutsMapper {
     int deleteByPrimaryKey(String id);
 
@@ -14,4 +16,6 @@ public interface ShortcutsMapper {
     int updateByPrimaryKeySelective(Shortcuts record);
 
     int updateByPrimaryKey(Shortcuts record);
+
+    List<Shortcuts> findShortcutsByUId(String uid);
 }
